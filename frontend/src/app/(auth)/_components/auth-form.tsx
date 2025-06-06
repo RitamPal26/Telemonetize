@@ -38,7 +38,7 @@ const AuthForm: React.FC<Props> = ({ action }) => {
       >
         <CardTitle
           className={paragraphVariants({
-            size: "xl",
+            size: "large",
             weight: "bold",
             className:
               "text-3xl tracking-tight text-indigo-600 dark:text-indigo-400",
@@ -108,7 +108,7 @@ const AuthForm: React.FC<Props> = ({ action }) => {
         <P
           variant="muted"
           size="small"
-          weight="normal"
+          weight="default"
           className="text-center text-slate-600 dark:text-slate-400 mt-4"
         >
           {action === "Sign In" ? (
