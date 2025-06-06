@@ -11,6 +11,7 @@ import orderRoute from "./order.route.js";
 import paddleWebhookRoute from "./paddle-webhook.route.js";
 import paypalWebhook from "./paypal-webhook.route.js";
 import validatorCron from "../routes/crons/validator.cron.js";
+import paypalCronRoute from "../routes/crons/paypal.cron.js";
 
 const routes = new Hono();
 
@@ -36,6 +37,6 @@ routes.route("/v1/user", sessionRoute);
 
 // Crons
 routes.route("/v1/cron", validatorCron); // To ban user
-//routes.route("/v1/cron", paypalCronRoute);
+routes.route("/v1/cron", paypalCronRoute);
 
 export default routes;
