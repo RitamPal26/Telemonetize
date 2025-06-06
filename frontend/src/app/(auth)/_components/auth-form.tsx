@@ -108,7 +108,7 @@ const AuthForm: React.FC<Props> = ({ action }) => {
         <P
           variant="muted"
           size="small"
-          weight="normal"
+          weight="default"
           className="text-center text-slate-600 dark:text-slate-400 mt-4"
         >
           {action === "Sign In" ? (
