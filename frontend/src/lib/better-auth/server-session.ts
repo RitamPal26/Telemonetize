@@ -1,27 +1,30 @@
-export const runtime = "nodejs";
-
 import { cookies } from "next/headers";
-
-import { axiosBaseInstance } from "../axios/config";
 import { UserWithSession } from "./auth-types";
 
 const getServerSession = async (): Promise<UserWithSession | null> => {
   try {
-    const cookieHeader = (await cookies()).toString();
+    const cookieStore = await cookies();
+    const cookieHeader = cookieStore.toString();
 
-    const res = await axiosBaseInstance.get<UserWithSession>(
-      `/user/session`,
-      {
-        headers: {
-          Cookie: cookieHeader,
-        },
-      }
-    );
+    const baseUrl = process.env.NEXT_PUBLIC_SERVER_BASE_URL || "";
 
-    return res.data;
+    const response = await fetch(`${baseUrl}/api/v1/user/session`, {
+      method: "GET",
+      headers: {
+        Cookie: cookieHeader,
+        "Content-Type": "application/json",
+      },
+      cache: "no-store", 
+    });
+
+    if (!response.ok) {
+      return null;
+    }
+
+    const data = await response.json();
+    return data;
   } catch (err) {
     console.log("Error in getting session: ", err);
-
     return null;
   }
 };
