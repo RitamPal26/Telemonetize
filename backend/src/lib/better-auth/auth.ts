@@ -13,6 +13,13 @@ import { createAuthMiddleware } from "better-auth/api";
 import db from "../database/db.js";
 import { Wallet } from "../database/model/wallet.model.js";
 
+console.log("======================");
+console.log("🔍 SERVER_DOMAIN:", SERVER_DOMAIN);
+console.log("🔍 CLIENT_DOMAIN:", CLIENT_DOMAIN);
+console.log("🔍 GITHUB_CLIENT_ID:", GITHUB_CLIENT_ID);
+console.log("🔍 process.env.BETTER_AUTH_URL:", process.env.BETTER_AUTH_URL);
+console.log("======================");
+
 const dbClient = client.db();
 
 export const auth = betterAuth({
