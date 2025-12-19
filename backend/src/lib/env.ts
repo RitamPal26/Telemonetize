@@ -1,6 +1,7 @@
 export const MONGODB_URI = process.env.MONGODB_URI || "";
 
 export const CLIENT_DOMAIN = process.env.CLIENT_DOMAIN || "";
+export const SERVER_DOMAIN = process.env.BETTER_AUTH_URL || "";
 
 export const GITHUB_CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET || "";
 export const GITHUB_CLIENT_ID = process.env.GITHUB_CLIENT_ID || "";

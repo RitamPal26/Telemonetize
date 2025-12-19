@@ -7,6 +7,7 @@ import {
   CLIENT_DOMAIN,
   GITHUB_CLIENT_ID,
   GITHUB_CLIENT_SECRET,
+  SERVER_DOMAIN,
 } from "../env.js";
 import { createAuthMiddleware } from "better-auth/api";
 import db from "../database/db.js";
@@ -15,6 +16,7 @@ import { Wallet } from "../database/model/wallet.model.js";
 const dbClient = client.db();
 
 export const auth = betterAuth({
+  baseURL: SERVER_DOMAIN,
   database: mongodbAdapter(dbClient),
   trustedOrigins: [CLIENT_DOMAIN],
   socialProviders: {
