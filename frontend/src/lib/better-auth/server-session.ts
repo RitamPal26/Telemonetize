@@ -6,15 +6,15 @@ const getServerSession = async (): Promise<UserWithSession | null> => {
     const cookieStore = await cookies();
     const cookieHeader = cookieStore.toString();
 
-    const baseUrl = process.env.NEXT_PUBLIC_SERVER_BASE_URL || "";
+    const backendUrl = process.env.INTERNAL_BACKEND_URL || "https://telemonetize.onrender.com";
 
-    const response = await fetch(`${baseUrl}/api/v1/user/session`, {
+    const response = await fetch(`${backendUrl}/api/v1/user/session`, {
       method: "GET",
       headers: {
         Cookie: cookieHeader,
         "Content-Type": "application/json",
       },
-      cache: "no-store", 
+      cache: "no-store",
     });
 
     if (!response.ok) {
