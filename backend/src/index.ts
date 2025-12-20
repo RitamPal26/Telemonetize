@@ -1,9 +1,9 @@
 import "dotenv/config";
-import { serve } from "@hono/node-server";
 import { Hono } from "hono";
 import { logger } from "hono/logger";
-import { Server as HttpServer } from "http";
 import { Server } from "socket.io";
+import { createServer } from "node:http"; // Import Node's native server
+import { getRequestListener } from "@hono/node-server"; // Import adapter
 
 import { initBot } from "./bot/index.js";
 import routes from "./routes/v1.js";
@@ -17,7 +17,6 @@ import { CLIENT_DOMAIN } from "./lib/env.js";
 
 const app = new Hono();
 const port = Number(process.env.PORT) || 8080;
-console.log(`Server is running on port ${port}`);
 
 // Middleware stack
 app.use(logger());
@@ -44,15 +43,15 @@ app.route("/api", routes);
 // Telegram Bot
 initBot();
 
-const server = serve({
-  fetch: app.fetch,
-  port,
-});
+// 1. Create a Node.js HTTP server that uses Hono to handle requests
+const httpServer = createServer(getRequestListener(app.fetch));
 
-const io = new Server(server as HttpServer, {
+// 2. Attach Socket.io to this HTTP server
+const io = new Server(httpServer, {
+  path: "/socket.io/", 
   cors: {
-    origin: CLIENT_DOMAIN,
-    methods: ["GET", "POST", "OPTIONS"],
+    origin: CLIENT_DOMAIN, 
+    methods: ["GET", "POST"],
     credentials: true,
   },
 });
@@ -63,11 +62,17 @@ io.on("connection", (socket) => {
 
   socket.on("join", (key) => {
     socket.join(key);
+    console.log(`Socket ${socket.id} joined room: ${key}`);
   });
 
   socket.on("disconnect", () => {
     console.log("Client disconnected:", socket.id);
   });
+});
+
+// 3. Start listening
+httpServer.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });
 
 export { io };
