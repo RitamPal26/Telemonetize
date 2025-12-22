@@ -5,7 +5,7 @@ import { Server } from "socket.io";
 import { createServer } from "node:http"; // Import Node's native server
 import { getRequestListener } from "@hono/node-server"; // Import adapter
 
-import bot, { initBot } from "./bot/index.js";
+import initBot, { initBot } from "./bot/index.js";
 import routes from "./routes/v1.js";
 import errorHandler from "./middleware/error.middleware.js";
 import db from "./lib/database/db.js";
