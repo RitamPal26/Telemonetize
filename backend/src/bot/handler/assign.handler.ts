@@ -1,6 +1,6 @@
 import client from "../../lib/better-auth/db.js";
 import { Group } from "../../lib/database/model/group.model.js";
-import bot from "../../lib/telegram/config.js";
+import { bot } from "../../lib/bot-instance.js";
 import { io } from "../../index.js";
 
 import { ObjectId, type PushOperator } from "mongodb";

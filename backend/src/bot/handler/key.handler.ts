@@ -1,7 +1,7 @@
 import { Group } from "../../lib/database/model/group.model.js";
 import { Subscription } from "../../lib/database/model/subscription.model.js";
 
-import bot from "../../lib/telegram/config.js";
+import { bot } from "../../lib/bot-instance.js";
 import { generateInviteLink } from "../../lib/telegram/utils/index.js";
 
 export const keyVerify = async () => {

@@ -1,4 +1,4 @@
-import bot from "../../lib/telegram/config.js";
+import { bot } from "../../lib/bot-instance.js";
 import {
   JOIN_GROUP,
   REGISTER_GROUP,
