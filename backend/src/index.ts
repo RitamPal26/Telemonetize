@@ -47,7 +47,7 @@ const honoListener = getRequestListener(app.fetch);
 
 // 2. Create the Node.js Server with MANUAL ROUTING
 const httpServer = createServer((req, res) => {
-  if (req.url && req.url.startsWith("/socket.io/")) {
+  if (req.url && (req.url.startsWith("/socket.io/") || req.url.startsWith("/socket.io?"))) {
     return;
   }
 
