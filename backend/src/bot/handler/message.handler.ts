@@ -18,18 +18,17 @@ If you have received your subscription key via email after completing the paymen
 
 ⚠️ **Note:**  
 - Make sure to replace \`<your_subscription_key>\`with the actual key you received.  
-- If you haven’t received your key or need assistance, please contact us at [support@example.com](mailto:support@example.com).  
+- If you haven’t received your key or need assistance, please contact us at [ritamjunior26@gmail.com](mailto:ritamjunior26@gmail.com).  
 `;
 
 const registerResponse = `📢 To add your group, please make sure this bot has **admin permissions** in your group.  
 Once done, type the following command in your group:  
 
-\`/assign <group gain username>\`  
+\`/assign <Telemonetize username>\`  
 
 **Example:** \`/assign group_gain\`  
 
-⚠️ **Note:** Replace \`<group gain username>\` with your actual group gain username. If you face any issues, contact support at [support@example.com](mailto:support@example.com).`;
-
+⚠️ **Note:** Replace \`<Telemonetize username>\` with your actual Telemonetize username. If you face any issues, contact support at [ritamjunior26@gmail.com](mailto:ritamjunior26@gmail.com).`;
 export const sendMessage = () => {
   bot.on("message", async (msg) => {
     const chatId = msg.chat.id;

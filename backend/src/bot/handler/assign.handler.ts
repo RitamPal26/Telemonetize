@@ -17,7 +17,7 @@ Now you can manage this group directly on the **Telemonetize Platform**.
 - View revenue reports and more!
 
 🔗 **[Login to Telemonetize Platform](https://groupgain.example.com)**  
-If you need help, feel free to contact us at [support@example.com](mailto:support@example.com).  
+If you need help, feel free to contact us at [ritamjunior26@gmail.com](mailto:ritamjunior26@gmail.com).  
 
 Thank you for choosing **Telemonetize**! 🚀
 `;
@@ -35,7 +35,7 @@ We couldn’t complete your request. This might be due to one of the following r
 - Make sure your group is set up with the correct permissions.  
 - Try again in a few minutes.  
 
-📧 If the problem persists, contact our support team at [support@example.com](mailto:support@example.com).  
+📧 If the problem persists, contact our support team at [ritamjunior26@gmail.com](mailto:ritamjunior26@gmail.com).  
 
 We’re here to help you! 😊
 `;
@@ -55,7 +55,7 @@ The bot doesn’t have admin privileges in your group. To proceed, please follow
 
 Once the bot has admin privileges, you can continue using the **Telemonetize** features.  
 
-❓ Need help? Contact support at [support@example.com](mailto:support@example.com).  
+❓ Need help? Contact support at [ritamjunior26@gmail.com](mailto:ritamjunior26@gmail.com).  
 `;
 
 export const assignGroup = () => {
@@ -119,7 +119,7 @@ export const assignGroup = () => {
         return;
       }
 
-      bot.sendMessage(chatId, "Please provide a valid Group Gains User-ID.");
+      bot.sendMessage(chatId, "Please provide a valid Telemonetize User-ID.");
     } catch (error) {
       console.log("Error in assigning group: ", error);
 
