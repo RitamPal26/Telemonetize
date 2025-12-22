@@ -1,4 +1,4 @@
-import { bot } from "../../lib/bot-instance.js";
+import { bot } from "../../bot-instance.js";
 
 export const generateInviteLink = async (groupId: number, userId: number) => {
   await bot.unbanChatMember(groupId, userId, { only_if_banned: true });
