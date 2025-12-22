@@ -5,7 +5,8 @@ import { Server } from "socket.io";
 import { createServer } from "node:http"; // Import Node's native server
 import { getRequestListener } from "@hono/node-server"; // Import adapter
 
-import bot, { initBot } from "./bot/index.js";
+import { bot } from "./lib/bot-instance.js";
+import { initBot, setupWebhook } from "./bot/index.js";
 import routes from "./routes/v1.js";
 import errorHandler from "./middleware/error.middleware.js";
 import db from "./lib/database/db.js";
@@ -39,11 +40,12 @@ app.get("/", (c) => c.text("Welcome to the Telegram Bot API!"));
 app.post("/api/v1/telegram/webhook", async (c) => {
   try {
     const update = await c.req.json();
+    console.log("📩 Received Telegram Update:", update.update_id); // Debug Log
     bot.processUpdate(update);
     return c.json({ ok: true });
   } catch (err) {
-    console.error("Webhook processing error:", err);
-    return c.json({ error: "Failed to process update" }, 500);
+    console.error("Webhook Error:", err);
+    return c.json({ error: "Failed" }, 500);
   }
 });
 
@@ -52,13 +54,17 @@ app.route("/api", routes);
 
 // Telegram Bot
 initBot();
+setupWebhook();
 
 // 1. Convert Hono app to a Node.js request listener
 const honoListener = getRequestListener(app.fetch);
 
 // 2. Create the Node.js Server with MANUAL ROUTING
 const httpServer = createServer((req, res) => {
-  if (req.url && (req.url.startsWith("/socket.io/") || req.url.startsWith("/socket.io?"))) {
+  if (
+    req.url &&
+    (req.url.startsWith("/socket.io/") || req.url.startsWith("/socket.io?"))
+  ) {
     return;
   }
 
