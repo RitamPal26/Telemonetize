@@ -18,7 +18,6 @@ import { CLIENT_DOMAIN } from "./lib/env.js";
 const app = new Hono();
 const port = Number(process.env.PORT) || 8080;
 
-// Middleware stack
 app.use(logger());
 app.use(addSession);
 app.use(configCors);
@@ -43,14 +42,23 @@ app.route("/api", routes);
 // Telegram Bot
 initBot();
 
-// 1. Create a Node.js HTTP server that uses Hono to handle requests
-const httpServer = createServer(getRequestListener(app.fetch));
+// 1. Convert Hono app to a Node.js request listener
+const honoListener = getRequestListener(app.fetch);
 
-// 2. Attach Socket.io to this HTTP server
+// 2. Create the Node.js Server with MANUAL ROUTING
+const httpServer = createServer((req, res) => {
+  if (req.url && req.url.startsWith("/socket.io/")) {
+    return;
+  }
+
+  honoListener(req, res);
+});
+
+// 3. Attach Socket.io to the server
 const io = new Server(httpServer, {
-  path: "/socket.io/", 
+  path: "/socket.io/",
   cors: {
-    origin: CLIENT_DOMAIN, 
+    origin: CLIENT_DOMAIN,
     methods: ["GET", "POST"],
     credentials: true,
   },
@@ -70,7 +78,7 @@ io.on("connection", (socket) => {
   });
 });
 
-// 3. Start listening
+// 4. Start listening
 httpServer.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
