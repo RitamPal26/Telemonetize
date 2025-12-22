@@ -5,7 +5,7 @@ import { Server } from "socket.io";
 import { createServer } from "node:http"; // Import Node's native server
 import { getRequestListener } from "@hono/node-server"; // Import adapter
 
-import initBot, { initBot } from "./bot/index.js";
+import bot, { initBot } from "./bot/index.js";
 import routes from "./routes/v1.js";
 import errorHandler from "./middleware/error.middleware.js";
 import db from "./lib/database/db.js";
@@ -39,7 +39,6 @@ app.get("/", (c) => c.text("Welcome to the Telegram Bot API!"));
 app.post("/api/v1/telegram/webhook", async (c) => {
   try {
     const update = await c.req.json();
-    // Pass the update to the bot so it can reply
     bot.processUpdate(update);
     return c.json({ ok: true });
   } catch (err) {
